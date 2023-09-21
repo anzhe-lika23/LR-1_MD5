@@ -160,8 +160,13 @@ class MD5(object):
         # Output the buffers in lower-case hexadecimal format.
         return f"{format(A, '08x')}{format(B, '08x')}{format(C, '08x')}{format(D, '08x')}"
 
-a = MD5()
-print(a.hash('hello'))
+if __name__ == "__main__":
+    input_string = "Cybersecurity"
+    md5_instance = MD5()
+    md5_hash = md5_instance.hash(input_string)
+    print(f"MD5 Hash of '{input_string}': {md5_hash}")
+
+
 # import math
 #
 # # Функції для MD5
