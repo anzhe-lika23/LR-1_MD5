@@ -1,6 +1,5 @@
-# https://perso.crans.org/besson/publis/notebooks/Manual_implementation_of_some_hash_functions.html
-
 import math
+import time
 
 rotation_constants = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
                       5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
@@ -89,12 +88,18 @@ def digest_to_hex(digest):
 def md5_hash(msg):
     msg = bytearray(msg, 'utf-8')
     msg = pad_message(msg)
+
+    start_time = time.time()
     processed_msg = process_message(msg)
     message_hash = digest_to_hex(processed_msg)
+    end_time = time.time()
+    execution_time = end_time - start_time
+
     print("Message Hash ->", message_hash)
+    print(f"Execution Time: {execution_time:.6f} seconds")
 
 
 if __name__ == '__main__':
-    print(f"{'='*20}\n{' '*7}MD-5\n{'='*20}")
+    print(f"{'=' * 30}\n{' ' * 5}Hash-functions MD-5\n{'=' * 30}")
     message = input("Message input -> ")
     md5_hash(message)
