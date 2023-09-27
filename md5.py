@@ -91,9 +91,10 @@ def md5_hash(msg):
     msg = pad_message(msg)
     processed_msg = process_message(msg)
     message_hash = digest_to_hex(processed_msg)
-    print("Message Hash:", message_hash)
+    print("Message Hash ->", message_hash)
 
 
 if __name__ == '__main__':
-    message = input()
+    print(f"{'='*20}\n{' '*7}MD-5\n{'='*20}")
+    message = input("Message input -> ")
     md5_hash(message)
