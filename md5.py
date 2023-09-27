@@ -1,5 +1,7 @@
 import math
 import time
+import csv
+
 
 rotation_constants = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
                       5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
@@ -91,6 +93,21 @@ def count_changed_bits(hash1, hash2):
     return bin(xor_result).count('1')
 
 
+def collect_and_save_bit_changes(hash_orig, hash_modify, out_file):
+    changes = []
+    for i in range(len(hash_orig)):
+        if hash_orig[i] != hash_modify[i]:
+            changes.append(i)
+
+    with open(out_file, 'w', newline='') as csvfile:
+        csvwriter = csv.writer(csvfile)
+        csvwriter.writerow(['Round', 'Changed Bits'])
+        for i, bit_position in enumerate(changes):
+            csvwriter.writerow([i + 1, bit_position])
+
+    print(f"Bit changes saved to {out_file}")
+
+
 def md5_hash(msg):
     msg = bytearray(msg, 'utf-8')
     msg = pad_message(msg)
@@ -121,3 +138,8 @@ if __name__ == '__main__':
     # К-сть змінених біт
     changed_bits_count = count_changed_bits(original_hash, modified_hash)
     print(f"Number of Changed Bits: {changed_bits_count}")
+
+    # Збір і збереження даних про зміну бітів для MD5
+
+    output_file = 'md5_bit_changes.csv'
+    collect_and_save_bit_changes(original_hash, modified_hash, output_file)
